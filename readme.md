@@ -24,7 +24,7 @@ pip install -r requirements.txt
 Run `client-test.py`
 
 ```bash
-python client-test.py
+python get_all_nodes.py
 ```
 
 ## Connection keys and certificates problems
