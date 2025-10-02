@@ -32,7 +32,7 @@ python client-test.py
 The function:
 
 ```python
-client.set_security_string("Aes128Sha256RsaOaep,SignAndEncrypt,certs/own/uaexpert.der,certs/own/uaexpert_key.pem,certs/server/nikonslm.birex.der")
+client.set_security_string(f"Aes128Sha256RsaOaep,SignAndEncrypt,{os.path.join('certs','own','uaexpert.der')},{os.path.join('certs','own','uaexpert_key.pem')},{os.path.join('certs','server','nikonslm.birex.der')}")
 ```
 
 Needs the certificate files inside the certs dir as follows:
