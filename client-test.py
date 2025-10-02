@@ -1,6 +1,7 @@
 import asyncio
 from asyncua import Client
 import socket
+import os
 
 namespace = "http://examples.freeopcua.github.io"
 
@@ -18,7 +19,8 @@ async def main():
         Call this before connect()
         """
     client.application_uri= f'urn:{socket.gethostname()}:UnifiedAutomation:UaExpert'
-    await client.set_security_string("Aes128Sha256RsaOaep,SignAndEncrypt,certs/own/uaexpert.der,certs/own/uaexpert_key.pem,certs/server/nikonslm.birex.der")
+
+    await client.set_security_string(f"Aes128Sha256RsaOaep,SignAndEncrypt,{os.path.join('certs','own','uaexpert.der')},{os.path.join('certs','own','uaexpert_key.pem')},{os.path.join('certs','server','nikonslm.birex.der')}")
     await client.connect()
     id='ns=5;i=6010'
     node = client.get_node(id)
