@@ -1,5 +1,6 @@
 import asyncio
 from asyncua import Client
+import socket
 
 namespace = "http://examples.freeopcua.github.io"
 
@@ -16,11 +17,21 @@ async def main():
           ``password`` is the private key password.
         Call this before connect()
         """
-    client.application_uri= 'urn:serperior:UnifiedAutomation:UaExpert'
+    client.application_uri= f'urn:{socket.gethostname()}:UnifiedAutomation:UaExpert'
     await client.set_security_string("Aes128Sha256RsaOaep,SignAndEncrypt,certs/own/uaexpert.der,certs/own/uaexpert_key.pem,certs/server/nikonslm.birex.der")
     await client.connect()
-    node = client.get_node('ns=5;i=6010')
+    id='ns=5;i=6010'
+    node = client.get_node(id)
+    description_refs = await node.get_description_refs()
+    properties = await node.get_properties()
     value = await node.read_value()
-    print(f"Value of MyVariable : {value}")
+    variables = await node.get_variables()
+    path = await node.get_path()
+
+    print(f"Value of {id}: {value}")
+    print(f"Description refs of {id}: {description_refs}")
+    print(f"Properties of {id}: {properties}")
+    print(f"Variables of {id}: {variables}")
+    print(f"Path of {id}: {path}")
 
 asyncio.run(main())
