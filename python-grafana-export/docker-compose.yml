@@ -1,0 +1,25 @@
+services:
+  exporter:
+    build:
+      dockerfile: Dockerfile
+      context: ./exporter
+    container_name: python_grafana_export_exporter
+    ports:
+      - 8080:8080
+    volumes:
+      - ./certs:/app/certs:ro
+  grafana:
+    image: grafana/grafana:12.2
+    container_name: python_grafana_export_grafana
+    restart: unless-stopped
+    environment:
+      - "GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}"
+      - "GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}"
+      - "GF_PLUGINS_PREINSTALL_SYNC=yesoreyeram-infinity-datasource,marcusolsson-json-datasource"
+    ports:
+      - '3000:3000'
+    volumes:
+      - python_grafana_export_grafana_data:/var/lib/grafana
+volumes:
+  grafana_data:
+  python_grafana_export_grafana_data:
