@@ -4,10 +4,15 @@ services:
       dockerfile: Dockerfile
       context: ./exporter
     container_name: python_grafana_export_exporter
+    environment:
+      - "OPC_IDS=ns=6;i=6111,ns=6;i=6103,ns=6;i=6104,ns=6;i=6122,ns=6;i=6115"
+      - "NICON_ADDRESS=192.168.102.10"
+      - "SLEEP_TIME=5"
     ports:
       - 8080:8080
     volumes:
       - ./certs:/app/certs:ro
+      - ./data/exporter:/var/lib/exporter/
   grafana:
     image: grafana/grafana:12.2
     container_name: python_grafana_export_grafana

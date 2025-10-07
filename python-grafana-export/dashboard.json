@@ -15,7 +15,6 @@
       }
     ]
   },
-  "description": "test",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -24,6 +23,94 @@
   "panels": [
     {
       "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "df0bfmh8edywwa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "12.2.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "value",
+              "text": "value",
+              "type": "number"
+            }
+          ],
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "method": "GET",
+            "params": [
+              {
+                "key": "ns",
+                "value": "6"
+              },
+              {
+                "key": "i",
+                "value": "6104"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Gas pump power",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
         "uid": "df0bfmh8edywwa"
       },
       "fieldConfig": {
@@ -85,7 +172,7 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
+        "x": 11,
         "y": 0
       },
       "id": 2,
@@ -107,14 +194,14 @@
         {
           "columns": [
             {
-              "selector": "SourceTimestamp",
-              "text": "timestamp",
-              "type": "timestamp"
+              "selector": "value",
+              "text": "value",
+              "type": "number"
             },
             {
-              "selector": "Value",
-              "text": "Value",
-              "type": "number"
+              "selector": "timestamp",
+              "text": "timestamp",
+              "type": "timestamp"
             }
           ],
           "filters": [],
@@ -122,7 +209,7 @@
           "global_query_id": "",
           "parser": "backend",
           "refId": "A",
-          "root_selector": "properties[5]",
+          "root_selector": "",
           "source": "url",
           "type": "json",
           "url": "",
@@ -136,13 +223,13 @@
               },
               {
                 "key": "i",
-                "value": "6115"
+                "value": "6111"
               }
             ]
           }
         }
       ],
-      "title": "New panel",
+      "title": "Gas temperature",
       "type": "timeseries"
     },
     {
@@ -153,9 +240,42 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
-          "displayName": "Oxygen level in main tank",
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -169,41 +289,167 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "percent"
+          }
         },
         "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 11,
         "x": 0,
         "y": 8
       },
-      "id": 1,
+      "id": 5,
       "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "12.2.0",
       "targets": [
         {
           "columns": [
             {
-              "selector": "Value",
-              "text": "Oxygen level in main tank",
+              "selector": "value",
+              "text": "value",
               "type": "number"
+            },
+            {
+              "selector": "timestamp",
+              "text": "timestamp",
+              "type": "timestamp"
+            }
+          ],
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "method": "GET",
+            "params": [
+              {
+                "key": "ns",
+                "value": "6"
+              },
+              {
+                "key": "i",
+                "value": "6103"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Gas flow speed",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "df0bfmh8edywwa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 11,
+        "y": 8
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.2.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "value",
+              "text": "value",
+              "type": "number"
+            },
+            {
+              "selector": "timestamp",
+              "text": "timestamp",
+              "type": "timestamp"
             }
           ],
           "datasource": {
@@ -213,9 +459,10 @@
           "filters": [],
           "format": "table",
           "global_query_id": "",
+          "pagination_mode": "none",
           "parser": "backend",
-          "refId": "Oxygen level in main tank",
-          "root_selector": "properties[5]",
+          "refId": "A",
+          "root_selector": "",
           "source": "url",
           "type": "json",
           "url": "",
@@ -224,35 +471,34 @@
             "method": "GET",
             "params": [
               {
-                "key": "i",
-                "value": "6122"
-              },
-              {
                 "key": "ns",
                 "value": "6"
+              },
+              {
+                "key": "i",
+                "value": "6122"
               }
             ]
           }
         }
       ],
-      "title": "New panel",
-      "type": "gauge"
+      "title": "oxygen level in main tank",
+      "type": "timeseries"
     }
   ],
   "preload": false,
-  "refresh": "5s",
   "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-6h",
-    "to": "now"
+    "from": "2025-10-07T22:08:49.516Z",
+    "to": "2025-10-07T22:08:51.535Z"
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Test",
-  "uid": "ad26ckg",
-  "version": 5
+  "title": "new exporter version",
+  "uid": "adrvm5t",
+  "version": 7
 }
