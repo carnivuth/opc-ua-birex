@@ -22,12 +22,12 @@ from threading import Thread
 # sensor folder
 # 'ns=6;i=5011'
 logging.basicConfig(level=logging.INFO)
+
 OPC_IDS = os.environ["OPC_IDS"].split(",")
 SLEEP_TIME=int(os.getenv("SLEEP_TIME","5"))
 OUT_FILE=os.getenv("OUT_FILE","/var/lib/exporter/data.out")
 NICON_ADDRESS=os.getenv("NICON_ADDRESS")
 NICON_PORT=os.getenv("NICON_PORT","4840")
-HTTP_ENPOINT_PORT=int(os.getenv("HTTP_ENDPOINT_PORT","8080"))
 
 
 async def exporter():
@@ -75,59 +75,10 @@ async def get_data(node: Node,out_file):
         except NotEnoughData:
             print(f"not enough data error for {node}")
 
-# filter csv file based on a node_id for http server response
-def readCsvFiltered(namespace,index):
-    # Open the CSV file
-    out = []
-    with open(OUT_FILE, 'r') as file:
-        csv_reader = csv.reader(file, delimiter=',')
-
-        # Filter and print titles based on conditions
-        for row in csv_reader:
-            node_id = str(row[0])
-            # Apply filtering conditions
-            if node_id == f'ns={namespace};i={index}':
-                out.append({"node_id":row[0],"value":row[1],"timestamp":row[2]})
-    return out
-
-# Simple HTTP endpoint for data retrival from grafana
-class Server(BaseHTTPRequestHandler):
-    def do_GET(self):
-
-        parsed_path = urlparse(self.path)
-        query_params = parse_qs(parsed_path.query)
-        namespace=query_params.get('ns',[None])[0]
-        index=query_params.get('i',[None])[0]
-
-        if index is None or namespace is None:
-
-            self.send_response(404)
-            self.send_header('Content-Type', 'application/json')
-            self.end_headers()
-
-        else:
-
-            json_response = json.dumps(readCsvFiltered(namespace,index))
-            self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
-            self.end_headers()
-            self.wfile.write(bytes(json_response, "utf8"))
-
-def main(port):
-
-
-    # running http endpoint
-    server_address = ('', port)
-    httpd = HTTPServer(server_address, Server)
-    print('Starting request handler on port %s...' % port)
-    t = Thread(target=httpd.serve_forever)
-    t.start()
-
+def main():
     # Run exporter coroutine
     print('starting exporter')
-    asyncio.ensure_future(exporter())
-    loop = asyncio.get_event_loop()
-    loop.run_forever()
+    asyncio.run(exporter())
 
 if __name__ == '__main__':
-    main(HTTP_ENPOINT_PORT)
+    main()

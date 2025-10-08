@@ -1,7 +1,7 @@
 FROM python:latest
 WORKDIR /app
 COPY ./requirements.txt .
-COPY ./exporter.py .
+COPY ./api.py .
 RUN pip install -r requirements.txt
 EXPOSE 8080
-CMD [ "python" ,"./exporter.py"]
+CMD [ "python" ,"./api.py"]
