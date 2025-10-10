@@ -1,5 +1,31 @@
 # opc ua client connection for birex nicon machine
 
+Proof of concept to extract and visualize data exposed from a nicon printer using opcua
+
+## Structure
+
+The poc exists inside `python-graphana-export` directory, is made up by 3 services
+
+- a python script to get data from the nicon machine
+- a python api endpoint to expose data
+- a grafana instance to make dashboard out of the api data
+
+```mermaid
+flowchart TD
+A{exporter.py}
+B{api.py}
+C{grafana}
+D[nicon printer]
+E@{ shape: doc }
+A -- gets data from --> D
+A -- writes to --> E
+C -- reads from --> E
+C -- gets data from --> B
+```
+> [!NOTE]
+> all services are deployed using docker and docker compose 🐳
+
+
 # how to run
 
 Connect to Birex `openvpn` server
