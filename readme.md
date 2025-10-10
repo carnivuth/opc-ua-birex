@@ -25,7 +25,7 @@ C -- gets data from --> B
 > [!NOTE]
 > all services are deployed using docker and docker compose 🐳
 
-## Test Poc on local host
+## Test Poc on localhost
 
 > [!WARNING]
 > To test Poc is necessary to have a access to birex vpn in order to connect to the nicon printer
