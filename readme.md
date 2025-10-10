@@ -1,4 +1,4 @@
-# opc ua client connection for birex nicon machine
+# Poc of birex nicon printer data extraction
 
 Proof of concept to extract and visualize data exposed from a nicon printer using opcua
 
@@ -30,7 +30,7 @@ C -- gets data from --> B
 > [!WARNING]
 > To test Poc is necessary to have a access to birex vpn in order to connect to the nicon printer
 
-- copy certificate inside the certs directory following this scheme
+- copy certificate inside the `python-grafana-export` directory following this scheme
 
 ```text
 certs
@@ -39,6 +39,13 @@ certs
 │   └── uaexpert_key.pem
 └── server
     └── nikonslm.birex.der
+```
+
+- create a `.env` file inside  `python-grafana-export` with the following content
+
+```bash
+GF_SECURITY_ADMIN_USER=admin
+GF_SECURITY_ADMIN_PASSWORD=[CHANGEME]
 ```
 
 - Enter inside the directory and run docker compose
