@@ -52,6 +52,8 @@ GF_SECURITY_ADMIN_PASSWORD=[CHANGEME]
 
 ```bash
 cd python-grafana-export
+# build to avoid old builds
+docker compose build
 docker compose up
 ```
 
