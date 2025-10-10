@@ -1,7 +1,6 @@
-FROM python:latest
+FROM python:3.14-trixie
 WORKDIR /app
 COPY ./requirements.txt .
 COPY ./exporter.py .
 RUN pip install -r requirements.txt
-EXPOSE 8080
 CMD [ "python" ,"./exporter.py"]
