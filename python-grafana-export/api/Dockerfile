@@ -1,4 +1,4 @@
-FROM python:3.14-trixie
+FROM python:3.13-trixie
 WORKDIR /app
 COPY ./api.py .
 EXPOSE 8080
