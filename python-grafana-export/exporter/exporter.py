@@ -28,12 +28,13 @@ SLEEP_TIME=int(os.getenv("SLEEP_TIME","5"))
 OUT_FILE=os.getenv("OUT_FILE","/var/lib/exporter/data.out")
 NICON_ADDRESS=os.getenv("NICON_ADDRESS")
 NICON_PORT=os.getenv("NICON_PORT","4840")
+APPLICATION_URI=os.getenv("APPLICATION_URI",f"urn:serperior:UnifiedAutomation:UaExpert")
 
 
 async def exporter():
     # connection to opc ua server over nicon slm
     client = Client(url=f'opc.tcp://{NICON_ADDRESS}:{NICON_PORT}')
-    client.application_uri= f'urn:serperior:UnifiedAutomation:UaExpert'
+    client.application_uri=APPLICATION_URI
     await client.set_security_string(f"Aes128Sha256RsaOaep,SignAndEncrypt,{os.path.join('certs','own','uaexpert.der')},{os.path.join('certs','own','uaexpert_key.pem')},{os.path.join('certs','server','nikonslm.birex.der')}")
     try:
         out_file = open(OUT_FILE,"at")
