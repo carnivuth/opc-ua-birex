@@ -58,6 +58,8 @@ docker compose build
 docker compose up
 ```
 
+- import `dashboard.json` file inside `grafana` container
+
 ### Connection keys and certificates problems
 
 The function:
