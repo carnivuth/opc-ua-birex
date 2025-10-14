@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 0,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -493,8 +493,8 @@
     "list": []
   },
   "time": {
-    "from": "2025-10-07T22:08:49.516Z",
-    "to": "2025-10-07T22:08:51.535Z"
+    "from": "now-6h",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
