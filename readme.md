@@ -58,6 +58,8 @@ docker compose build
 docker compose up
 ```
 
+- configure the infinity data source inside grafana to pull from `http://python_grafana_export_api:8080`
+
 - import `dashboard.json` file inside `grafana` container
 
 ### Connection keys and certificates problems
