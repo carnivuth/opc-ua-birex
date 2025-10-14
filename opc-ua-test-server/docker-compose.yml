@@ -1,8 +1,0 @@
-services:
-  server:
-    build:
-        dockerfile: ./Dockerfile
-    container_name: server
-    restart: on-failure
-    ports:
-      - "4840:4840"
