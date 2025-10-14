@@ -46,6 +46,7 @@ certs
 ```bash
 GF_SECURITY_ADMIN_USER=admin
 GF_SECURITY_ADMIN_PASSWORD=[CHANGEME]
+APPLICATION_URI=[INSERT APPLICATION_URI ACCORDING TO CERTIFICATE SPECIFICATION] # sample is urn:serperior:UnifiedAutomation:UaExpert
 ```
 
 - Enter inside the directory and run docker compose
