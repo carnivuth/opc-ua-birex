@@ -19,7 +19,7 @@ D[nicon printer]
 E@{ shape: doc }
 A -- gets data from --> D
 A -- writes to --> E
-C -- reads from --> E
+B -- reads from --> E
 C -- gets data from --> B
 ```
 > [!NOTE]
