@@ -126,17 +126,17 @@ async def main():
 
 async def explore_get_values(node: Node):
 
+    try:
         browse_name = await node.read_browse_name()
-        description = await node.read_description()
-        out_node ={ "node_id": node.nodeid.to_string(),"browse_name": browse_name,"description": description}
+        out_node ={ "node_id": node.nodeid.to_string(),"browse_name": browse_name}
         print(out_node)
 
-        except BadAttributeIdInvalid:
-            print(f"no attribute for {node}")
-        except BadUserAccessDenied:
-            print(f"no permission error for {node}")
-        except NotEnoughData:
-            print(f"not enough data error for {node}")
+    except BadAttributeIdInvalid:
+        print(f"no attribute for {node}")
+    except BadUserAccessDenied:
+        print(f"no permission error for {node}")
+    except NotEnoughData:
+        print(f"not enough data error for {node}")
 
     # recursion
     childrens = await node.get_children()
