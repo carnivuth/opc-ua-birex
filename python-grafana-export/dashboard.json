@@ -29,6 +29,130 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 23,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.2.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "value",
+              "text": "value",
+              "type": "number"
+            },
+            {
+              "selector": "timestamp",
+              "text": "timestamp",
+              "type": "timestamp"
+            }
+          ],
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "method": "GET",
+            "params": [
+              {
+                "key": "ns",
+                "value": "6"
+              },
+              {
+                "key": "i",
+                "value": "6156"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Inert gas inlet pressure",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "bf0dhwax0qxhcb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "thresholds"
           },
           "mappings": [],
@@ -52,7 +176,7 @@
         "h": 8,
         "w": 11,
         "x": 0,
-        "y": 0
+        "y": 9
       },
       "id": 3,
       "options": {
@@ -173,7 +297,7 @@
         "h": 8,
         "w": 12,
         "x": 11,
-        "y": 0
+        "y": 9
       },
       "id": 2,
       "options": {
@@ -297,7 +421,7 @@
         "h": 8,
         "w": 23,
         "x": 0,
-        "y": 8
+        "y": 17
       },
       "id": 8,
       "options": {
@@ -421,7 +545,7 @@
         "h": 8,
         "w": 11,
         "x": 0,
-        "y": 16
+        "y": 25
       },
       "id": 5,
       "options": {
@@ -545,7 +669,7 @@
         "h": 8,
         "w": 12,
         "x": 11,
-        "y": 16
+        "y": 25
       },
       "id": 1,
       "options": {
@@ -674,7 +798,7 @@
         "h": 8,
         "w": 11,
         "x": 0,
-        "y": 24
+        "y": 33
       },
       "id": 6,
       "options": {
@@ -798,7 +922,7 @@
         "h": 8,
         "w": 12,
         "x": 11,
-        "y": 24
+        "y": 33
       },
       "id": 7,
       "options": {
@@ -856,21 +980,237 @@
       ],
       "title": "Oxygen 2 ppm",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "bf0dhwax0qxhcb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 23,
+        "x": 0,
+        "y": 41
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.2.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "value",
+              "text": "value",
+              "type": "number"
+            },
+            {
+              "selector": "timestamp",
+              "text": "timestamp",
+              "type": "timestamp"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "df0bfmh8edywwa"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "pagination_mode": "none",
+          "parser": "backend",
+          "refId": "oxygen level in main tank",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "method": "GET",
+            "params": [
+              {
+                "key": "ns",
+                "value": "6"
+              },
+              {
+                "key": "i",
+                "value": "6122"
+              }
+            ]
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "value",
+              "text": "value",
+              "type": "number"
+            },
+            {
+              "selector": "timestamp",
+              "text": "timestamp",
+              "type": "timestamp"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "df0bfmh8edywwa"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "hide": false,
+          "pagination_mode": "none",
+          "parser": "backend",
+          "refId": "oxygen 1 ppm",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "method": "GET",
+            "params": [
+              {
+                "key": "ns",
+                "value": "6"
+              },
+              {
+                "key": "i",
+                "value": "6107"
+              }
+            ]
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "value",
+              "text": "value",
+              "type": "number"
+            },
+            {
+              "selector": "timestamp",
+              "text": "timestamp",
+              "type": "timestamp"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "df0bfmh8edywwa"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "hide": false,
+          "pagination_mode": "none",
+          "parser": "backend",
+          "refId": "oxygen 2 ppm",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "method": "GET",
+            "params": [
+              {
+                "key": "ns",
+                "value": "6"
+              },
+              {
+                "key": "i",
+                "value": "6108"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "oxygen levels",
+      "type": "timeseries"
     }
   ],
   "preload": false,
+  "refresh": "10s",
   "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "2025-10-16T13:11:24.749Z",
-    "to": "2025-10-16T13:13:29.349Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "nicon birex",
   "uid": "adrvm5t",
-  "version": 9
+  "version": 14
 }
