@@ -90,7 +90,7 @@ client.application_uri= f'urn:{socket.gethostname()}:UnifiedAutomation:UaExpert'
 ```
 
 
-## Export metrics list
+### Export metrics list
 
 To export all possible metrics exposed from the opc-ua server of the machine run the following script
 
@@ -152,3 +152,5 @@ Then run it with:
 ```bash
 python script.py | tee metrics.txt
 ```
+
+Metrics informations are stored inside `metrics.md`
