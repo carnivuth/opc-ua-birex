@@ -88,3 +88,67 @@ The library present itself with a default application uri wich is not suited for
 ```python
 client.application_uri= f'urn:{socket.gethostname()}:UnifiedAutomation:UaExpert'
 ```
+
+
+## Export metrics list
+
+To export all possible metrics exposed from the opc-ua server of the machine run the following script
+
+```python
+import asyncio
+import socket
+import os
+import json
+from asyncua import Client
+from asyncua import Node
+from asyncua.common.ua_utils import val_to_string
+from asyncua.common.utils import NotEnoughData
+from asyncua.ua.uaerrors import BadAttributeIdInvalid
+from asyncua.ua.uaerrors._auto import BadUserAccessDenied
+
+ID_TO_LOOK_FOR_DATA = [ 'i=85']
+
+async def main():
+    nicon_address='192.168.102.10'
+    nicon_port='4840'
+    client = Client(url=f'opc.tcp://{nicon_address}:{nicon_port}')
+    # fix this parameters
+    client.application_uri= f'urn:{socket.gethostname()}:UnifiedAutomation:UaExpert'
+    await client.set_security_string(f"Aes128Sha256RsaOaep,SignAndEncrypt,{os.path.join('certs','own','uaexpert.der')},{os.path.join('certs','own','uaexpert_key.pem')},{os.path.join('certs','server','nikonslm.birex.der')}")
+    try:
+        await client.connect()
+
+        for id in ID_TO_LOOK_FOR_DATA:
+            node = client.get_node(id)
+            await explore_get_values(node)
+    finally:
+        await client.disconnect()
+
+async def explore_get_values(node: Node):
+
+        browse_name = await node.read_browse_name()
+        description = await node.read_description()
+        out_node ={ "node_id": node.nodeid.to_string(),"browse_name": browse_name,"description": description}
+        print(out_node)
+
+        except BadAttributeIdInvalid:
+            print(f"no attribute for {node}")
+        except BadUserAccessDenied:
+            print(f"no permission error for {node}")
+        except NotEnoughData:
+            print(f"not enough data error for {node}")
+
+    # recursion
+    childrens = await node.get_children()
+    if  len(childrens) != 0:
+        for child in childrens:
+            await explore_get_values(child)
+
+asyncio.run(main())
+```
+
+Then run it with:
+
+```bash
+python script.py | tee metrics.txt
+```
