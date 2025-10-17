@@ -21,6 +21,17 @@ services:
       - ./certs:/app/certs:ro
       - ./data/exporter:/var/lib/exporter/
 
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: ./api
+    container_name: python_grafana_export_api
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    volumes:
+      - ./data/exporter:/var/lib/exporter/
+
   # storage for metrics
   influxdb:
     image: influxdb:2
