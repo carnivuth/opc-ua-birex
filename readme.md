@@ -41,12 +41,10 @@ certs
     └── nikonslm.birex.der
 ```
 
-- create a `.env` file inside  `python-grafana-export` with the following content
+- create a `.env` file inside  `python-grafana-export` and setup variable content
 
 ```bash
-GF_SECURITY_ADMIN_USER=admin
-GF_SECURITY_ADMIN_PASSWORD=[CHANGEME]
-APPLICATION_URI=[INSERT APPLICATION_URI ACCORDING TO CERTIFICATE SPECIFICATION] # sample is urn:serperior:UnifiedAutomation:UaExpert
+grep -e '- [A-Za-z0-9_]*=\${[A-Za-z0-9_]*}' python-grafana-export/docker-compose.yml  | awk -F'=' '{print $1}' | awk -F'-' '{print $2}' > python-grafana-export/.env
 ```
 
 - Enter inside the directory and run docker compose
