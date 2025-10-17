@@ -12,18 +12,19 @@ The poc exists inside `python-graphana-export` directory, is made up by 3 servic
 
 ```mermaid
 flowchart LR
-A{exporter.py}
-B{api.py}
-C{grafana}
-D[nicon printer]
-E@{ shape: doc ,label: data.out}
-F@{ shape: database, label: influxdb}
+A@{ shape: in-out, label: nicon printer}
+B@{ shape: proc, label: exporter.py}
+C@{ shape: doc ,label: data.out}
+D@{ shape: database, label: influxdb}
+E@{ shape: proc, label: api.py}
+F@{ shape: proc, label: grafana}
 
-D --- A --- E & F --- B --- C
-A -- gets data from --> D
-A -- writes to --> E & F
-B -- reads from --> E
-C -- gets data from --> B & F
+A ~~~ B
+E ~~~ F
+F --reads--> E & D
+E --reads--> C
+B --reads--> A
+B --writes--> C & D
 ```
 > [!NOTE]
 > all services are deployed using docker and docker compose 🐳
