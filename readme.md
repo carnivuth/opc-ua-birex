@@ -16,11 +16,13 @@ A{exporter.py}
 B{api.py}
 C{grafana}
 D[nicon printer]
-E@{ shape: doc }
+E@{ shape: doc ,label: data.out}
+F@{ shape: database, label influxdb}
+
 A -- gets data from --> D
-A -- writes to --> E
+A -- writes to --> E & F
 B -- reads from --> E
-C -- gets data from --> B
+C -- gets data from --> B & F
 ```
 > [!NOTE]
 > all services are deployed using docker and docker compose 🐳
