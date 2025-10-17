@@ -19,6 +19,7 @@ D[nicon printer]
 E@{ shape: doc ,label: data.out}
 F@{ shape: database, label: influxdb}
 
+D --- A --- E & F --- B --- C
 A -- gets data from --> D
 A -- writes to --> E & F
 B -- reads from --> E
