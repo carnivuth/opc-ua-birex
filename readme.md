@@ -11,7 +11,7 @@ The poc exists inside `python-graphana-export` directory, is made up by 3 servic
 - a grafana instance to make dashboard out of the api data
 
 ```mermaid
-flowchart TD
+flowchart LR
 A{exporter.py}
 B{api.py}
 C{grafana}
