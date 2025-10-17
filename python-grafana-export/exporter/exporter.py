@@ -47,7 +47,6 @@ logging.info(SLEEP_TIME)
 logging.info(OUT_FILE)
 logging.info(INFLUXDB_BUCKET)
 logging.info(INFLUXDB_ORG)
-logging.info(INFLUXDB_TOKEN)
 logging.info(INFLUXDB_SERVER)
 
 client = InfluxDBClient( url=INFLUXDB_SERVER, token=INFLUXDB_TOKEN, org=INFLUXDB_ORG)
