@@ -17,7 +17,7 @@ B{api.py}
 C{grafana}
 D[nicon printer]
 E@{ shape: doc ,label: data.out}
-F@{ shape: database, label influxdb}
+F@{ shape: database, label: influxdb}
 
 A -- gets data from --> D
 A -- writes to --> E & F
