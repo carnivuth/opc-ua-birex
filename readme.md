@@ -59,6 +59,15 @@ cd python-grafana-export
 docker compose build
 docker compose up
 ```
+> [!TIP]
+> is possible to start a subset of services for example to run the `api.py` endpoint
+> ```bash
+> docker compose up exporter api grafana
+> ```
+> or to run the set of services using influx instead of saving to a plain file
+> ```bash
+> docker compose up exporter influxdb grafana
+> ```
 
 - configure the infinity data source inside grafana to pull from `http://python_grafana_export_api:8080`
 
