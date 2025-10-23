@@ -113,7 +113,7 @@ async def get_data(node: Node,out_file):
                     logging.info(f"writing {node} data inside {INFLUXDB_SERVER} ")
 
                     points = [
-                        Point("mesure")
+                        Point(f"{val_to_string(node_browse_name)}")
                         .tag("node_id",node.nodeid.to_string())
                         .tag("browse_name",val_to_string(node_browse_name))
                         .field("value",float(val_to_string(data_value.Value.Value)))
