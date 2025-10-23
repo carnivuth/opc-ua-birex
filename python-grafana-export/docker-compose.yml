@@ -9,12 +9,9 @@ services:
     restart: unless-stopped
     environment:
       - "APPLICATION_URI=${APPLICATION_URI}"
-      - "OPC_IDS=ns=6;i=6111,ns=6;i=6103,ns=6;i=6104,ns=6;i=6122,ns=6;i=6115"
+      - "OPC_IDS=ns=5;i=5011,ns=6;i=6156,ns=6;i=6155,ns=6;i=6107,ns=6;i=6108,ns=6;i=6044,ns=6;i=6111,ns=6;i=6103,ns=6;i=6104,ns=6;i=6122,ns=6;i=6115"
       - "NICON_ADDRESS=192.168.102.10"
       - "SLEEP_TIME=5"
-      - INFLUXDB_USERNAME=${DOCKER_INFLUXDB_INIT_USERNAME}
-      - INFLUXDB_PASSWORD=${DOCKER_INFLUXDB_INIT_PASSWORD}
-      - INFLUXDB_ORG=${DOCKER_INFLUXDB_INIT_ORG}
       - INFLUXDB_BUCKET=${DOCKER_INFLUXDB_INIT_BUCKET}
       - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
     volumes:
@@ -34,36 +31,38 @@ services:
 
   # storage for metrics
   influxdb:
-    image: influxdb:2
+    image: influxdb:3.5.0-core
     container_name: python_grafana_export_influxdb
     restart: unless-stopped
-    user: "1000"
+    user: "${USER_ID}"
     ports:
-      - 8086:8086
-    environment:
-      - DOCKER_INFLUXDB_INIT_MODE=setup
-      - DOCKER_INFLUXDB_INIT_USERNAME=${DOCKER_INFLUXDB_INIT_USERNAME}
-      - DOCKER_INFLUXDB_INIT_PASSWORD=${DOCKER_INFLUXDB_INIT_PASSWORD}
-      - DOCKER_INFLUXDB_INIT_ORG=${DOCKER_INFLUXDB_INIT_ORG}
-      - DOCKER_INFLUXDB_INIT_BUCKET=${DOCKER_INFLUXDB_INIT_BUCKET}
+      - 8181:8181
+    command:
+      - influxdb3
+      - serve
+      - --node-id=python_grafana_export_influxdb
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3/data
+      - --plugin-dir=/var/lib/influxdb3/plugins
     volumes:
-      - python_grafana_export_influx_data:/var/lib/influxdb2
-      - python_grafana_export_influx_config:/etc/influxdb2
+      - ./data/influxdb/data:/var/lib/influxdb3/data
+      - ./data/influxdb/plugins:/var/lib/influxdb3/plugins
 
   grafana:
     image: grafana/grafana:12.2
+    user: "${USER_ID}"
     container_name: python_grafana_export_grafana
     restart: unless-stopped
     environment:
       - "GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}"
       - "GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}"
       - "GF_PLUGINS_PREINSTALL_SYNC=yesoreyeram-infinity-datasource"
+      # influxdb connection parameters for datasource
+      - INFLUXDB_BUCKET=${DOCKER_INFLUXDB_INIT_BUCKET}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
     ports:
       - '3000:3000'
     volumes:
-      - python_grafana_export_grafana_data:/var/lib/grafana
+      - ./data/grafana:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
 
-volumes:
-  python_grafana_export_grafana_data:
-  python_grafana_export_influx_data:
-  python_grafana_export_influx_config:

@@ -48,14 +48,14 @@ certs
 - create a `.env` file inside  `python-grafana-export` and setup variable content
 
 ```bash
-grep -e '- [A-Za-z0-9_]*=\${[A-Za-z0-9_]*}' python-grafana-export/docker-compose.yml  | awk -F'=' '{print $1}' | awk -F'-' '{print $2}' > python-grafana-export/.env
+grep -oe '\${[A-Za-z0-9_]*}' python-grafana-export/docker-compose.yml | tr -d '[${}]'  | sort -u > python-grafana-export/.env
 ```
 
 - Enter inside the directory and run docker compose
 
 ```bash
 cd python-grafana-export
-# build to avoid old builds
+# build to avoid old container builds
 docker compose build
 docker compose up
 ```
@@ -68,6 +68,18 @@ docker compose up
 > ```bash
 > docker compose up exporter influxdb grafana
 > ```
+
+- Create a token to access influxdb api
+
+```bash
+docker exec -it python_grafana_export_influxdb influxdb3 create token --admin
+```
+
+- export token and create a database `metrics` to store and read the printer data
+
+```bash
+docker exec -it python_grafana_export_influxdb influxdb3 create database metrics --token $INFLUXDB3_AUTH_TOKEN
+```
 
 - configure the infinity data source inside grafana to pull from `http://python_grafana_export_api:8080`
 

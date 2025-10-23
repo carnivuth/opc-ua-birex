@@ -1,13 +1,12 @@
 import logging
 import asyncio
 import os
-from influxdb_client import InfluxDBClient, Point
-from influxdb_client.client.write_api import SYNCHRONOUS
 from asyncua import Client
 from asyncua import Node
 from asyncua.common.ua_utils import val_to_string
 from asyncua.common.utils import NotEnoughData
 from asyncua.ua.uaerrors._auto import BadUserAccessDenied
+from influxdb_client_3 import ( InfluxDBClient3, InfluxDBError, Point, WritePrecision, WriteOptions, write_client_options)
 
 # OPC_UA PARAMETERS
 # posssible values
@@ -33,7 +32,7 @@ OUT_FILE=os.getenv("OUT_FILE","/var/lib/exporter/data.out")
 INFLUXDB_BUCKET=os.getenv("INFLUXDB_BUCKET","metrics")
 INFLUXDB_ORG = os.getenv("INFLUXDB_ORG","")
 INFLUXDB_TOKEN = os.getenv("INFLUXDB_TOKEN","")
-INFLUXDB_SERVER = os.getenv("INFLUXDB_SERVER","http://python_grafana_export_influxdb:8086")
+INFLUXDB_SERVER = os.getenv("INFLUXDB_SERVER","http://python_grafana_export_influxdb:8181")
 
 # LOGGING
 LOGLEVEL = os.getenv('LOGLEVEL', 'INFO').upper()
@@ -49,10 +48,20 @@ logging.info(INFLUXDB_BUCKET)
 logging.info(INFLUXDB_ORG)
 logging.info(INFLUXDB_SERVER)
 
-client = InfluxDBClient( url=INFLUXDB_SERVER, token=INFLUXDB_TOKEN, org=INFLUXDB_ORG)
-# Write script
-write_api = client.write_api(write_options=SYNCHRONOUS)
+# influxdb3 client configuration
+def influx_success(self, data: str):
+    logging.info(f"Successfully wrote batch: data: {data}")
 
+def influx_error(self, data: str, exception: InfluxDBError):
+    logging.error(f"Failed writing batch: config: {self}, data: {data} due: {exception}")
+
+def influx_retry(self, data: str, exception: InfluxDBError):
+    logging.warning(f"Failed retry writing batch: config: {self}, data: {data} retry: {exception}")
+
+write_options = WriteOptions(batch_size=500, flush_interval=10_000, jitter_interval=2_000, retry_interval=5_000, max_retries=5, max_retry_delay=30_000, exponential_base=2)
+wco = write_client_options(success_callback=influx_success, error_callback=influx_error, retry_callback=influx_retry, write_options=write_options)
+
+client = InfluxDBClient3(host=INFLUXDB_SERVER, token=INFLUXDB_TOKEN, database=INFLUXDB_BUCKET, write_client_options=wco)
 
 async def exporter():
     # connection to opc ua server over nicon slm
@@ -102,13 +111,15 @@ async def get_data(node: Node,out_file):
 
                     # write to influx db
                     logging.info(f"writing {node} data inside {INFLUXDB_SERVER} ")
-                    point = (
+
+                    points = [
                         Point("mesure")
                         .tag("node_id",node.nodeid.to_string())
                         .tag("browse_name",val_to_string(node_browse_name))
                         .field("value",float(val_to_string(data_value.Value.Value)))
-                    )
-                    write_api.write(bucket=INFLUXDB_BUCKET, org=INFLUXDB_ORG, record=point)
+                    ]
+
+                    client.write(points, write_precision='s')
 
         # exploring the tree we found some object that cannot be accessed and gives us permission error
         except BadUserAccessDenied:

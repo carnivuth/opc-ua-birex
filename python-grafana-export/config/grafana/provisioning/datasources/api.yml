@@ -1,0 +1,15 @@
+# Configuration file version
+apiVersion: 1
+
+prune: true
+
+# List of data sources to insert/update depending on what's
+# available in the database.
+datasources:
+  - name: python_grafana_export_api
+    type: yesoreyeram-infinity-datasource
+    access: proxy
+    orgId: 1
+    uid: PA3AB6CB72F678EC6
+    url: http://python_grafana_export_api:8080
+    editable: false

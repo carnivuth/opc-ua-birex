@@ -1,6 +1,14 @@
+# python virtual environments
 env
+# env vars files
 .env
+# opc ua certificates and keys
 certs
+# data from the exporter
 data.out
+# pdfs
 *.pdf
+# data folders for applications
 data
+# data folders for applications
+python-grafana-export/config/influxdb
