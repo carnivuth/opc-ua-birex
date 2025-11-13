@@ -64,6 +64,17 @@ services:
       - ./data/influxdb/data:/var/lib/influxdb3/data
       - ./data/influxdb/plugins:/var/lib/influxdb3/plugins
 
+  grafana-mcp:
+    container_name: python_grafana_export_grafana-mcp
+    image: mcp/grafana
+    ports:
+      - 8000:8000
+    command: " -debug -t streamable-http"
+
+    environment:
+      - GRAFANA_URL=http://python_grafana_export_grafana:3000
+      - GRAFANA_SERVICE_ACCOUNT_TOKEN=${GRAFANA_SERVICE_ACCOUNT_TOKEN}
+
   grafana:
     image: grafana/grafana:12.2
     user: "${USER_ID}"
