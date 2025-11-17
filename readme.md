@@ -8,31 +8,65 @@ The poc exists inside `python-graphana-export` directory, is made up by 3 servic
 
 - a python script to get data from the nicon machine
 - a python api endpoint to expose data
+- influxdb for metrics storage
 - a grafana instance to make dashboard out of the api data
 
 ```mermaid
 flowchart LR
 A@{ shape: in-out, label: nicon printer}
 B@{ shape: proc, label: exporter.py}
-C@{ shape: doc ,label: data.out}
-D@{ shape: database, label: influxdb}
-E@{ shape: proc, label: api.py}
-F@{ shape: proc, label: grafana}
+C@{ shape: database, label: data storage}
+D@{ shape: proc, label: grafana}
 
-A ~~~ B
-E ~~~ F
-F --reads--> E & D
-E --reads--> C
 B --reads--> A
-B --writes--> C & D
+B --writes--> C
+D --reads--> C
 ```
 > [!NOTE]
 > all services are deployed using docker and docker compose 🐳
+
+The deployment can be done using 2 different storage solutions,
+
+- a single file where data are written in append mode
+
+```mermaid
+flowchart LR
+A@{ shape: in-out, label: nicon printer}
+B@{ shape: proc, label: exporter.py}
+C@{ shape: doc, label: file}
+D@{ shape: proc, label: api.py}
+E@{ shape: proc, label: grafana}
+
+B --reads--> A
+B --writes--> C
+D --reads--> C
+E --reads--> D
+```
+
+- an influx db instance
+
+```mermaid
+flowchart LR
+A@{ shape: in-out, label: nicon printer}
+B@{ shape: proc, label: exporter.py}
+C@{ shape: db, label: influxdb}
+D@{ shape: proc, label: grafana}
+
+B --reads--> A
+B --writes--> C
+D --reads--> C
+```
+
 
 ## Test Poc on localhost
 
 > [!WARNING]
 > To test Poc is necessary to have a access to birex vpn in order to connect to the nicon printer
+
+### Setup OPC UA certificates and keys to access birex nicon printer
+
+
+- connect to the printer using [opcua expert client](https://www.unified-automation.com/downloads)
 
 - copy certificate inside the `python-grafana-export` directory following this scheme
 
