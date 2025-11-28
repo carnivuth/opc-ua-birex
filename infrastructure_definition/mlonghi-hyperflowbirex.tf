@@ -35,7 +35,7 @@ resource "proxmox_virtual_environment_vm" "mlonghi-hyperflowbirex" {
 
   cpu {
     cores = 16
-    type  = "x86-64-v2-AES"
+    type  = "host"
   }
 
   memory {
