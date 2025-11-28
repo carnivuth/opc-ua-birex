@@ -10,5 +10,10 @@ data.out
 *.pdf
 # data folders for applications
 data
-# data folders for applications
 python-grafana-export/config/influxdb
+
+# terrform files
+*.tfstate*
+terraform.*
+*.terraform*
+plan
