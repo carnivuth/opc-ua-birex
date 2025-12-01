@@ -24,15 +24,13 @@ resource "proxmox_virtual_environment_download_file" "debian_vm_cloud_image" {
 
 resource "proxmox_virtual_environment_vm" "mlonghi-hyperflowbirex" {
   name      = "mlonghi-hyperflowbirex"
+  pool_id="mlonghi"
   # create vms on all nodes
   node_name = "CA6"
-    agent {
-    # read 'Qemu guest agent' section, change to true only when ready
-    enabled = true
-  }
   # should be true if qemu agent is not installed / enabled on the VM
   stop_on_destroy = true
 
+  tags =["mlonghi"]
   cpu {
     cores = 16
     type  = "host"
