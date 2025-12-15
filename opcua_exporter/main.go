@@ -42,6 +42,7 @@ var securityPolicy = flag.String("security-policy", "", "Security policy (e.g., 
 var securityMode = flag.String("security-mode", "", "Security mode (None, Sign, SignAndEncrypt)")
 var certFile = flag.String("cert", "", "Path to client certificate file (.der or .pem)")
 var keyFile = flag.String("key", "", "Path to client private key file (.pem)")
+var serverCertFile = flag.String("servcert", "", "Path to server certificate file")
 
 // NodeConfig : Structure for representing OPCUA nodes to monitor.
 type NodeConfig struct {
@@ -167,6 +168,7 @@ func getClient(endpoint *string) (*opcua.Client, error) {
 			opcua.SecurityPolicy(policy),
 			opcua.SecurityMode(mode),
 			opcua.CertificateFile(*certFile),
+			opcua.RemoteCertificateFile(*serverCertFile),
 			opcua.PrivateKey(pk),
 			opcua.AuthAnonymous(),
 		}
