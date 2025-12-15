@@ -1,0 +1,8 @@
+- nodeName: ns=6;i=6115
+  metricName: collimator
+
+- nodeName: ns=6;i=6107
+  metricName: Oxygen_1_ppm
+
+- nodeName: ns=6;i=6108
+  metricName: Oxygen_2_ppm
