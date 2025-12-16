@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 1m
+
+scrape_configs:
+
+  # test
+  #- job_name: 'test'
+  #  scrape_interval: 1m
+  #  static_configs:
+  #    - targets: ['localhost:9090']

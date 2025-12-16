@@ -64,6 +64,24 @@ services:
       - ./data/influxdb/data:/var/lib/influxdb3/data
       - ./data/influxdb/plugins:/var/lib/influxdb3/plugins
 
+  # storage for grafana drilldown
+  prometheus:
+    image: prom/prometheus:v3.7.1
+    container_name: python_grafana_export_prometheus
+    restart: unless-stopped
+    user: "${USER_ID}"
+    volumes:
+      - ./config/prometheus:/etc/prometheus
+      - ./data/prometheus/:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    ports:
+      - 9090:9090
+
   grafana-mcp:
     container_name: python_grafana_export_grafana-mcp
     image: mcp/grafana
