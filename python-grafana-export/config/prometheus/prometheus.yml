@@ -1,10 +1,15 @@
-global:
-  scrape_interval: 1m
-
+# prometheus.yml
 scrape_configs:
+  # Scrape del tuo Prometheus exporter
+  - job_name: 'opcua_exporter'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['prometheus_exporter:9686']
+        labels:
+          service: 'opcua'
+          machine: 'nicon_birex'
 
-  # test
-  #- job_name: 'test'
-  #  scrape_interval: 1m
-  #  static_configs:
-  #    - targets: ['localhost:9090']
+  # Scrape Prometheus server itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
